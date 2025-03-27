@@ -45,7 +45,7 @@ public class MazeRunnerTest {
     // Test 5: Path factorization - simple input
     @Test
     public void testFactorizePathSimple() {
-        Solution solution = new Solution(new Maze(tinyMaze));
+        Solution solution = new RightHandRule(new Maze(tinyMaze));
         String result = solution.factorizePath("FFFFRRFF");
         assertEquals("4F 2R 2F", result);
     }
@@ -53,14 +53,14 @@ public class MazeRunnerTest {
     // Test 6: Path factorization - empty input
     @Test
     public void testFactorizePathEmpty() {
-        Solution solution = new Solution(new Maze(tinyMaze));
+        Solution solution = new RightHandRule(new Maze(tinyMaze));
         assertEquals("", solution.factorizePath(""));
     }
 
     // Test 7: solveMaze() returns a non-empty path
     @Test
     public void testSolveMazeReturnsNonEmptyPath() {
-        Solution solution = new Solution(new Maze(tinyMaze));
+        Solution solution = new RightHandRule(new Maze(tinyMaze));
         String result = solution.solveMaze();
         assertNotNull(result);
         assertFalse(result.isEmpty());
@@ -70,7 +70,7 @@ public class MazeRunnerTest {
     @Test
     public void testPathValidatorCorrectPath() {
         Maze maze = new Maze(tinyMaze);
-        Solution solution = new Solution(maze);
+        Solution solution = new RightHandRule(maze);
         PathValidator validator = new PathValidator(solution);
 
         String correctPath = solution.solveMaze();
@@ -81,7 +81,7 @@ public class MazeRunnerTest {
     @Test
     public void testPathValidatorIncorrectPath() {
         Maze maze = new Maze(tinyMaze);
-        Solution solution = new Solution(maze);
+        Solution solution = new RightHandRule(maze);
         PathValidator validator = new PathValidator(solution);
 
         assertFalse(validator.validatePath("1F 1R 1F"));  // Wrong path
@@ -91,7 +91,7 @@ public class MazeRunnerTest {
     @Test
     public void testInvalidPathFormatReturnsFalse() {
         Maze maze = new Maze(tinyMaze);
-        Solution solution = new Solution(maze);
+        Solution solution = new RightHandRule(maze);
         PathValidator validator = new PathValidator(solution);
 
         assertFalse(validator.validatePath(""));
