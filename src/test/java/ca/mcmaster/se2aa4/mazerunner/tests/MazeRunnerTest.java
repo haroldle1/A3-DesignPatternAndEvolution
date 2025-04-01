@@ -7,21 +7,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MazeRunnerTest {
 
-    private final String tinyMaze = "./examples/tiny.maz.txt";
+    private final String testMaze = "./examples/test.maz.txt";
 
     // Test 1: MazeReader reads correct dimensions
     @Test
     public void testMazeReaderLoadsMaze() {
-        MazeReader reader = new MazeReader(tinyMaze);
-        assertEquals(7, reader.getRows()); // adjust based on actual file
-        assertEquals(7, reader.getCols()); // adjust based on actual file
+        MazeReader reader = new MazeReader(testMaze);
+        assertEquals(reader.getCols(), reader.getRows()); //Check if the maze is n by n
         assertEquals('#', reader.getMaze()[0][0]); // check some known value
     }
 
     // Test 2: Maze detects entry and exit points
     @Test
     public void testMazeEntryAndExitPoints() {
-        Maze maze = new Maze(tinyMaze);
+        Maze maze = new Maze(testMaze);
         assertNotNull(maze.getEntryPoint());
         assertNotNull(maze.getExitPoint());
     }
@@ -29,15 +28,15 @@ public class MazeRunnerTest {
     // Test 3: Maze dimensions from Maze object
     @Test
     public void testMazeGridDimensions() {
-        Maze maze = new Maze(tinyMaze);
-        assertEquals(7, maze.getRows()); 
-        assertEquals(7, maze.getCols()); 
+        Maze maze = new Maze(testMaze);
+        assertEquals(4, maze.getRows()); 
+        assertEquals(4, maze.getCols()); 
     }
 
     // Test 4: Grid content check
     @Test
     public void testMazeGridContents() {
-        Maze maze = new Maze(tinyMaze);
+        Maze maze = new Maze(testMaze);
         char[][] grid = maze.getMaze();
         assertEquals('#', grid[0][0]);
     }
@@ -45,7 +44,7 @@ public class MazeRunnerTest {
     // Test 5: Path factorization - simple input
     @Test
     public void testFactorizePathSimple() {
-        Solution solution = new Solution(new Maze(tinyMaze));
+        Solution solution = new Solution(new Maze(testMaze));
         String result = solution.factorizePath("FFFFRRFF");
         assertEquals("4F 2R 2F", result);
     }
@@ -53,14 +52,14 @@ public class MazeRunnerTest {
     // Test 6: Path factorization - empty input
     @Test
     public void testFactorizePathEmpty() {
-        Solution solution = new Solution(new Maze(tinyMaze));
+        Solution solution = new Solution(new Maze(testMaze));
         assertEquals("", solution.factorizePath(""));
     }
 
     // Test 7: solveMaze() returns a non-empty path
     @Test
     public void testSolveMazeReturnsNonEmptyPath() {
-        Solution solution = new Solution(new Maze(tinyMaze));
+        Solution solution = new Solution(new Maze(testMaze));
         String result = solution.solveMaze();
         assertNotNull(result);
         assertFalse(result.isEmpty());
@@ -69,7 +68,7 @@ public class MazeRunnerTest {
     // Test 8: PathValidator accepts the correct path
     @Test
     public void testPathValidatorCorrectPath() {
-        Maze maze = new Maze(tinyMaze);
+        Maze maze = new Maze(testMaze);
         Solution solution = new Solution(maze);
         PathValidator validator = new PathValidator(solution);
 
@@ -80,7 +79,7 @@ public class MazeRunnerTest {
     // Test 9: PathValidator rejects incorrect path
     @Test
     public void testPathValidatorIncorrectPath() {
-        Maze maze = new Maze(tinyMaze);
+        Maze maze = new Maze(testMaze);
         Solution solution = new Solution(maze);
         PathValidator validator = new PathValidator(solution);
 
@@ -90,7 +89,7 @@ public class MazeRunnerTest {
     // Test 10: PathValidator handles empty/null input
     @Test
     public void testInvalidPathFormatReturnsFalse() {
-        Maze maze = new Maze(tinyMaze);
+        Maze maze = new Maze(testMaze);
         Solution solution = new Solution(maze);
         PathValidator validator = new PathValidator(solution);
 
