@@ -28,7 +28,7 @@ public class Main {
 
                 // Load the maze
                 Maze maze = new Maze(filePath);
-                SolvingInterface solution = new Solution(maze);
+                SolvingInterface solution = new TimingDecorator(new Solution(maze));
 
                 // If -p flag is provided, validate the given path
                 if (cmd.hasOption("p")) {
@@ -39,15 +39,12 @@ public class Main {
                     PathValidator validator = new PathValidator(solution);
                     boolean isValid = validator.validatePath(providedPath);
 
-                    if (isValid) {
-                        System.out.println("Correct Path");
-                    } else {
-                        System.out.println("Incorrect Path");
-                    }
+                    Command validateCommand = new ValidatePathCommand(validator, providedPath);
+                    validateCommand.execute();
                 } else {
                     // Solve the maze and print the canonical path
-                    String path = solution.solveMaze();
-                    System.out.println(path);
+                    Command solveCommand = new SolveMazeCommand(solution);
+                    solveCommand.execute();
                     logger.info("Maze solved successfully!");
                 }
             } else {
