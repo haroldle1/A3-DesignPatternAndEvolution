@@ -112,13 +112,13 @@ public class Solution implements SolvingInterface{
         int count = 1;
         
         for (int i = 1; i < canoPath.length(); i++) {
-        if (canoPath.charAt(i) == currentMove) {
-            count++;
-        } else {
-            factorizedPath.append(count).append(currentMove).append(" "); //Format space in between
-            currentMove = canoPath.charAt(i);
-            count = 1;
-        }
+            if (canoPath.charAt(i) == currentMove) {
+                count++;
+            } else {
+                factorizedPath.append(count).append(currentMove).append(" "); //Format space in between
+                currentMove = canoPath.charAt(i);
+                count = 1;
+            }
     }
     factorizedPath.append(count).append(currentMove);
     return factorizedPath.toString();

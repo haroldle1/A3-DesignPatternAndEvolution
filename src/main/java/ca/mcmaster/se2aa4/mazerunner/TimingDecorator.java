@@ -1,11 +1,9 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-public class TimingDecorator implements SolvingInterface {
-
-    private final SolvingInterface decorated;
+public class TimingDecorator extends SolutionDecorator {
 
     public TimingDecorator(SolvingInterface decorated) {
-        this.decorated = decorated;
+        super(decorated);
     }
 
     @Override

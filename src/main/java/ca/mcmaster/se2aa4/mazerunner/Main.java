@@ -37,8 +37,6 @@ public class Main {
 
                     // Create a PathValidator instance and validate the path
                     PathValidator validator = new PathValidator(solution);
-                    boolean isValid = validator.validatePath(providedPath);
-
                     Command validateCommand = new ValidatePathCommand(validator, providedPath);
                     validateCommand.execute();
                 } else {
