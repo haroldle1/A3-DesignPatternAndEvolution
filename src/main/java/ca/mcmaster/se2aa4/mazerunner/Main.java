@@ -20,6 +20,7 @@ public class Main {
         try {
             // Parse command-line arguments
             CommandLine cmd = parser.parse(options, args);
+            CommandHistory history = new CommandHistory();
 
             // Check if -i is provided
             if (cmd.hasOption("i")) {
@@ -28,7 +29,7 @@ public class Main {
 
                 // Load the maze
                 Maze maze = new Maze(filePath);
-                SolvingInterface solution = new TimingDecorator(new Solution(maze));
+                SolvingInterface solution = new MovesCounterDecorator(new TimingDecorator(new Solution(maze)));
 
                 // If -p flag is provided, validate the given path
                 if (cmd.hasOption("p")) {
@@ -38,11 +39,13 @@ public class Main {
                     // Create a PathValidator instance and validate the path
                     PathValidator validator = new PathValidator(solution);
                     Command validateCommand = new ValidatePathCommand(validator, providedPath);
-                    validateCommand.execute();
+                    validateCommand.execute();   //execute the command
+                    history.push(validateCommand);
                 } else {
                     // Solve the maze and print the canonical path
                     Command solveCommand = new SolveMazeCommand(solution);
-                    solveCommand.execute();
+                    solveCommand.execute();  //execute the command
+                    history.push(solveCommand);
                     logger.info("Maze solved successfully!");
                 }
             } else {
